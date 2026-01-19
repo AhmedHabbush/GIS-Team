@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Background Circle with Gradient -->
+    <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#A8896C;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8B6F47;stop-opacity:1" />
+        </linearGradient>
+
+        <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FEFDFB;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#F2F3EB;stop-opacity:0.95" />
+        </linearGradient>
+
+        <!-- Shadow -->
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="0" dy="2" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="100" height="100" rx="20" fill="url(#bgGradient)"/>
+
+    <!-- Portal/Gateway Icon -->
+    <g filter="url(#shadow)">
+        <!-- Outer Arch -->
+        <path d="M 30 75 L 30 40 Q 30 25 50 25 Q 70 25 70 40 L 70 75"
+              fill="none"
+              stroke="url(#iconGradient)"
+              stroke-width="6"
+              stroke-linecap="round"/>
+
+        <!-- Inner Arch -->
+        <path d="M 40 75 L 40 45 Q 40 35 50 35 Q 60 35 60 45 L 60 75"
+              fill="none"
+              stroke="url(#iconGradient)"
+              stroke-width="4"
+              stroke-linecap="round"/>
+
+        <!-- Door/Base -->
+        <rect x="35" y="70" width="30" height="8" rx="2" fill="url(#iconGradient)"/>
+
+        <!-- Decorative Dots -->
+        <circle cx="50" cy="45" r="3" fill="#F2F3EB" opacity="0.8"/>
+        <circle cx="42" cy="55" r="2" fill="#F2F3EB" opacity="0.6"/>
+        <circle cx="58" cy="55" r="2" fill="#F2F3EB" opacity="0.6"/>
+    </g>
+
+    <!-- Accent Highlight -->
+    <circle cx="50" cy="30" r="4" fill="#FEFDFB" opacity="0.4"/>
+</svg>

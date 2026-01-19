@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <!-- Background -->
+    <rect x="0" y="0" width="64" height="64" rx="14" fill="#2563EB"/>
+
+    <!-- Portal / Access Icon -->
+    <path
+        d="M32 14L14 30h6v16a4 4 0 004 4h16a4 4 0 004-4V30h6L32 14z"
+        fill="white"
+    />
+
+    <!-- Door line -->
+    <rect x="30" y="34" width="4" height="10" rx="2" fill="#2563EB"/>
+</svg>
