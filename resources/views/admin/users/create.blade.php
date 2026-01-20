@@ -18,7 +18,7 @@
                 <h2 style="font-size: 18px; font-weight: 600;">معلومات المستخدم</h2>
             </x-slot:header>
 
-            <form method="POST" action="{{ route('admin.users.store') }}">
+            <form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div style="margin-bottom: 20px;">
@@ -42,6 +42,29 @@
                     @error('email')
                     <span
                         style="color: var(--danger); font-size: 13px; margin-top: 4px; display: block;">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500;">
+                        رقم الجوال
+                    </label>
+
+                    <input type="text"
+                           name="phone"
+                           value="{{ old('phone') }}"
+                           placeholder="05xxxxxxxx"
+                           style="
+                width: 100%;
+                padding: 10px 14px;
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                font-size: 14px;
+           ">
+
+                    @error('phone')
+                    <span style="color: var(--danger); font-size: 13px; margin-top: 4px; display: block;">
+        {{ $message }}
+    </span>
                     @enderror
                 </div>
 
@@ -176,6 +199,68 @@
                     <template x-for="id in selected" :key="id">
                         <input type="hidden" name="pages[]" :value="id">
                     </template>
+                </div>
+
+                <div x-data="{ imagePreview: null }" style="margin-bottom: 24px;">
+
+                    <label style="display:block;margin-bottom:10px;font-size:14px;font-weight:500;">
+                        الصورة الشخصية
+                    </label>
+
+                    <div style="display:flex; align-items:center; gap:20px;">
+
+                        {{-- Preview --}}
+                        <div style="
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            border:2px dashed #d1d5db;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            background:#f9fafb;
+        ">
+                            <template x-if="imagePreview">
+                                <img :src="imagePreview" style="width:100%;height:100%;object-fit:cover;">
+                            </template>
+
+                            <template x-if="!imagePreview">
+                <span style="font-size:12px;color:#9ca3af;text-align:center;">
+                    لا توجد صورة
+                </span>
+                            </template>
+                        </div>
+
+                        {{-- Upload --}}
+                        <div style="flex:1;">
+                            <input type="file"
+                                   name="profile_image"
+                                   accept="image/*"
+                                   @change="
+                        const file = $event.target.files[0];
+                        if (file) imagePreview = URL.createObjectURL(file);
+                   "
+                                   style="
+                        width:100%;
+                        padding:10px;
+                        border:1px solid var(--border);
+                        border-radius:8px;
+                        font-size:13px;
+                        background:white;
+                   ">
+
+                            <small style="display:block;margin-top:6px;color:#6b7280;font-size:12px;">
+                                PNG, JPG — بحد أقصى 2MB
+                            </small>
+
+                            @error('profile_image')
+                            <span style="color: var(--danger); font-size: 13px; margin-top: 6px; display: block;">
+                {{ $message }}
+            </span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
                 <div style="display: flex; gap: 12px; margin-top: 24px;">
