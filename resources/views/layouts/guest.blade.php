@@ -92,12 +92,28 @@
             letter-spacing: 0.5px;
         }
 
+        /* تمييز بين صفحات Auth وصفحات المحتوى */
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px; /* عرض أكبر للصفحات */
+            position: relative;
+            z-index: 10;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 28rem; /* 448px - للـ Login/Register */
+            position: relative;
+            z-index: 10;
+        }
+
         @media (max-width: 768px) {
             .topbar-auth {
                 padding: 1rem;
             }
 
-            .auth-card {
+            .content-wrapper,
+            .auth-wrapper {
                 margin: 1rem;
             }
 
@@ -139,17 +155,33 @@
 
 <!-- Main Content -->
 <div class="min-h-screen flex items-center justify-center auth-gradient pt-24 pb-12 px-4 relative">
-    <!-- Auth Card -->
-    <div class="w-full max-w-md relative z-10 auth-card">
+    @php
+        // تحديد الصفحات التي تحتاج عرض أكبر
+        $widePages = ['about', 'privacy', 'terms'];
+        $currentRoute = Route::currentRouteName();
+        $isWidePage = in_array($currentRoute, $widePages);
+    @endphp
+
+        <!-- Dynamic Wrapper بناءً على نوع الصفحة -->
+    <div class="{{ $isWidePage ? 'content-wrapper' : 'auth-wrapper' }}">
         <div class="glass-effect rounded-2xl shadow-2xl p-6 sm:p-8">
             {{ $slot }}
         </div>
 
         <!-- Footer -->
         <div class="text-center mt-6">
-            <p class="text-sm" style="color: var(--text-secondary);">
-                © {{ date('Y') }} جميع الحقوق محفوظة . GIS Team
-            </p>
+            <footer class="mt-12 py-6 border-t" style="border-color: var(--border);">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <div class="flex justify-center gap-6 mb-4 flex-wrap">
+                        <a href="{{ route('about') }}" class="text-sm hover:underline transition-colors" style="color: var(--text-secondary);">من نحن</a>
+                        <a href="{{ route('privacy') }}" class="text-sm hover:underline transition-colors" style="color: var(--text-secondary);">سياسة الخصوصية</a>
+                        <a href="{{ route('terms') }}" class="text-sm hover:underline transition-colors" style="color: var(--text-secondary);">شروط الاستخدام</a>
+                    </div>
+                    <p class="text-sm" style="color: var(--text-secondary);">
+                        © {{ date('Y') }} جميع الحقوق محفوظة . GIS Team
+                    </p>
+                </div>
+            </footer>
         </div>
     </div>
 </div>
