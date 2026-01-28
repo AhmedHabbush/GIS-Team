@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="إدارة الخرائط GIS">
+    <meta name="keywords" content="GIS, نظم المعلومات الجغرافية, إدارة البيانات">
+    <meta name="author" content="GIS Team">
+    <meta name="robots" content="index, follow">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
     <title>{{ config('app.name', 'نظام البوابة') }}</title>
 
